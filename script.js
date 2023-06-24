@@ -1,5 +1,6 @@
 const addPlayerForm = document.getElementById('add-player-form');
 const randomPlayerButton = document.getElementById('random-player-button');
+const removePlayerButton = document.getElementById('remove-player-button');
 const playerContainer = document.getElementById('all-players-container');
 const cohortName = '2302-acc-pt-web-pt-e';
 const APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}/players`;
@@ -47,6 +48,31 @@ function getRandomPlayer() {
     });
 }
 
+// Function to remove a player
+function removePlayer() {
+  fetch(APIURL, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(response => response.json())
+    .then(data => {
+      const { success, error } = data;
+
+      if (!success) {
+        throw new Error(error?.message || 'Failed to remove player.');
+      }
+
+      playerContainer.innerHTML = '';
+    })
+    .catch(error => {
+      displayError(error.message);
+      console.error(error);
+    });
+}
+
+// Function to add a player
 function addPlayer(event) {
   event.preventDefault();
 
@@ -101,5 +127,7 @@ function addPlayer(event) {
     });
 }
 
+// Event listeners
 randomPlayerButton.addEventListener('click', getRandomPlayer);
 addPlayerForm.addEventListener('submit', addPlayer);
+removePlayerButton.addEventListener('click', removePlayer);
