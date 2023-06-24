@@ -56,6 +56,55 @@ function getRandomPlayer() {
     });
 }
 
+const viewRosterButton = document.getElementById('view-roster-button');
+
+// Function to view the roster
+function viewRoster() {
+  fetch(APIURL)
+    .then(response => response.json())
+    .then(data => {
+      const { success, error, data: { players } } = data;
+
+      if (!success) {
+        throw new Error(error?.message || 'Failed to fetch roster.');
+      }
+
+      if (players.length === 0) {
+        throw new Error('No players available.');
+      }
+
+      playerContainer.innerHTML = '';
+
+      players.forEach(player => {
+        const playerElement = document.createElement('div');
+        playerElement.classList.add('player');
+        playerElement.dataset.playerId = player.id;
+
+        const playerName = document.createElement('p');
+        playerName.textContent = `Name: ${player.name}`;
+        const playerBreed = document.createElement('p');
+        playerBreed.textContent = `Breed: ${player.breed}`;
+        const playerImage = document.createElement('img');
+        playerImage.src = player.imageUrl;
+        playerImage.alt = player.name;
+        playerImage.style.width = '150px'; // Set the desired width
+        playerImage.style.height = '150px'; // Set the desired height
+
+        playerElement.appendChild(playerName);
+        playerElement.appendChild(playerBreed);
+        playerElement.appendChild(playerImage);
+        playerContainer.appendChild(playerElement);
+      });
+    })
+    .catch(error => {
+      displayError(error.message);
+      console.error(error);
+    });
+}
+
+viewRosterButton.addEventListener('click', viewRoster);
+
+
 // Function to remove a player
 async function removePlayer(playerId) {
   try {
