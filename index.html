@@ -5,44 +5,40 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Puppy Bowl</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-  <h1>Puppy Bowl</h1>
-
-  <div id="error-container"></div>
-
-  <div id="all-players-container"></div>
-
-  <form id="add-player-form">
-    <h2>Add a Player</h2>
-    <label for="name-input">Name:</label>
-    <input type="text" id="name-input" required><br>
-    <label for="breed-input">Breed:</label>
-    <input type="text" id="breed-input" required><br>
-    <label for="status-select">Status:</label>
-    <select id="status-select">
-      <option value="field">Field</option>
-      <option value="benched">Benched</option>
-    </select><br>
-    <label for="image-url-input">Image URL:</label>
-    <input type="text" id="image-url-input"><br>
-    <button type="submit">Add Player</button>
-  </form>
-
-  <button id="random-player-button">Get Random Player</button>
-
-  <div id="remove-player-section">
-    <h2>Remove a Player</h2>
-    <button type="button" id="remove-player-button">Remove Player</button>
+  <div class="container">
+    <h1>Puppy Bowl</h1>
+    <div id="error-container"></div>
+    <form id="add-player-form">
+      <h2>Add a Player</h2>
+      <div>
+        <label for="name-input">Name:</label>
+        <input type="text" id="name-input" required>
+      </div>
+      <div>
+        <label for="breed-input">Breed:</label>
+        <input type="text" id="breed-input" required>
+      </div>
+      <div>
+        <label for="status-select">Status:</label>
+        <select id="status-select">
+          <option value="bench">Bench</option>
+          <option value="field">Field</option>
+        </select>
+      </div>
+      <div>
+        <label for="image-url-input">Image URL:</label>
+        <input type="text" id="image-url-input" required>
+      </div>
+      <button type="submit">Add Player</button>
+    </form>
+    <div id="all-players-container"></div>
+    <button id="random-player-button">Add Random Player</button>
+    <button id="remove-player-button">Remove Player</button>
   </div>
-
-  <!-- Player Container -->
-  <div id="all-players-container"></div>
-
-  <!-- Error Message -->
-  <div id="error-container" class="error"></div>
-</div>
 
   <script src="script.js"></script>
 </body>
