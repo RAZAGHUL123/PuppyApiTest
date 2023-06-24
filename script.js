@@ -189,6 +189,7 @@ function addPlayer(event) {
     });
 }
 
+// Event listeners
 randomPlayerButton.addEventListener('click', getRandomPlayer);
 addPlayerForm.addEventListener('submit', addPlayer);
 removePlayerButton.addEventListener('click', () => {
