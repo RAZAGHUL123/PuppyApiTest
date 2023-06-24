@@ -1,6 +1,7 @@
 const addPlayerForm = document.getElementById('add-player-form');
 const randomPlayerButton = document.getElementById('random-player-button');
 const removePlayerButton = document.getElementById('remove-player-button');
+const viewRosterButton = document.getElementById('view-roster-button');
 const playerContainer = document.getElementById('all-players-container');
 const cohortName = '2302-acc-pt-web-pt-e';
 const APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}/players`;
@@ -33,6 +34,8 @@ function getRandomPlayer() {
       playerName.textContent = `Name: ${randomPlayer.name}`;
       const playerBreed = document.createElement('p');
       playerBreed.textContent = `Breed: ${randomPlayer.breed}`;
+      const playerStatus = document.createElement('p');
+      playerStatus.textContent = `Status: ${randomPlayer.status}`;
       const playerImage = document.createElement('img');
       playerImage.src = randomPlayer.imageUrl;
       playerImage.alt = randomPlayer.name;
@@ -40,6 +43,7 @@ function getRandomPlayer() {
       playerContainer.innerHTML = '';
       playerContainer.appendChild(playerName);
       playerContainer.appendChild(playerBreed);
+      playerContainer.appendChild(playerStatus);
       playerContainer.appendChild(playerImage);
 
       // Prompt user if they want to delete the player
@@ -55,8 +59,6 @@ function getRandomPlayer() {
       console.error(error);
     });
 }
-
-const viewRosterButton = document.getElementById('view-roster-button');
 
 // Function to view the roster
 function viewRoster() {
@@ -84,6 +86,8 @@ function viewRoster() {
         playerName.textContent = `Name: ${player.name}`;
         const playerBreed = document.createElement('p');
         playerBreed.textContent = `Breed: ${player.breed}`;
+        const playerStatus = document.createElement('p');
+        playerStatus.textContent = `Status: ${player.status}`;
         const playerImage = document.createElement('img');
         playerImage.src = player.imageUrl;
         playerImage.alt = player.name;
@@ -92,6 +96,7 @@ function viewRoster() {
 
         playerElement.appendChild(playerName);
         playerElement.appendChild(playerBreed);
+        playerElement.appendChild(playerStatus);
         playerElement.appendChild(playerImage);
         playerContainer.appendChild(playerElement);
       });
@@ -101,9 +106,6 @@ function viewRoster() {
       console.error(error);
     });
 }
-
-viewRosterButton.addEventListener('click', viewRoster);
-
 
 // Function to remove a player
 async function removePlayer(playerId) {
@@ -141,7 +143,8 @@ function addPlayer(event) {
     name: nameInput.value.trim(),
     breed: breedInput.value.trim(),
     status: statusSelect.value,
-    imageUrl: imageUrlInput.value.trim()
+    imageUrl: imageUrlInput.value.trim(),
+    teamId: 520 // Set the desired teamId value here
   };
 
   fetch(APIURL, {
@@ -163,6 +166,8 @@ function addPlayer(event) {
       playerName.textContent = `Name: ${newPlayer.name}`;
       const playerBreed = document.createElement('p');
       playerBreed.textContent = `Breed: ${newPlayer.breed}`;
+      const playerStatus = document.createElement('p');
+      playerStatus.textContent = `Status: ${newPlayer.status}`;
       const playerImage = document.createElement('img');
       playerImage.src = newPlayer.imageUrl;
       playerImage.alt = newPlayer.name;
@@ -170,6 +175,7 @@ function addPlayer(event) {
       playerContainer.innerHTML = '';
       playerContainer.appendChild(playerName);
       playerContainer.appendChild(playerBreed);
+      playerContainer.appendChild(playerStatus);
       playerContainer.appendChild(playerImage);
 
       nameInput.value = '';
@@ -191,6 +197,7 @@ removePlayerButton.addEventListener('click', () => {
     removePlayer(userInput);
   }
 });
+viewRosterButton.addEventListener('click', viewRoster);
 
 // Make the API call
 fetch(APIURL)
